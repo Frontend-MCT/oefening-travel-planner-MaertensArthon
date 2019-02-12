@@ -1,0 +1,125 @@
+/* SETTINGS */
+:root{
+    --color-alpha: #de4831;
+    --color-beta: #e1decb;
+    --color-dark: #221e21;
+
+    --gutter: 24px;
+}
+
+
+/* ELEMENTS */
+
+body,
+html{
+    /* Positioning */
+    /* Box model */
+    /* Fonts */
+    font-family: 'Sarabun', sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--color-dark);
+    /* Appearence */
+    /* Other styles */
+    
+}
+
+/* OBJEcTS */
+.o-grid{
+    display: grid;
+    gap: calc(var(--gutter)*2);
+}
+
+/* UTILITIES */
+.u-grid-main-layout{
+    grid-template-columns: 350px 1fr;
+    min-height: 100vh;
+}
+
+.u-color-alpha{
+    color: var(--color-alpha);
+}
+
+/* COMPONENTS */
+
+/* Sidebar */
+.c-sidebar{
+    background: var(--color-beta);
+    height: 100vh;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: var(--gutter);
+}
+
+
+.c-sidebar-header{
+    display: flex;
+    align-items: center;
+}
+
+.c-sidebar-header__image{
+    max-height: var(--gutter);
+}
+
+.-sidebar-header__title{
+    font-size: 1rem; /*relative to the body's font-size*/
+    margin-left: calc(var(--gutter)/2)
+}
+
+.c-sidebar-menu{
+}
+
+.c-sidebar-counter{
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: .7;
+}
+
+/* Menu */
+.c-menu-list{
+    list-style: none;
+    margin: 0 0 calc(var(--gutter)*3);
+    padding: 0;
+
+
+}
+
+.c-menu__item{
+ 
+}
+
+.c-menu__link{
+    all:unset;
+
+    color: var(--color-alpha);
+    font-size: .95rem;
+    font-weight: 600;
+
+    will-change: opacity;
+    transition: opacity 200ms ease-out;
+    opacity: .7;
+
+    cursor: pointer;
+}
+
+.c-menu__link:hover{
+    opacity: 1;
+}
+
+.c-menu__title{
+    margin-bottom: 0;
+
+    font-size: .8rem;
+    text-transform: uppercase;
+    opacity: .7;
+}
+
+/* Content*/
+.c-content{
+    height: 100vh;
+    overflow-x: auto;
+}
+
