@@ -1,32 +1,56 @@
 console.log('Welcome there! ✌✌');
 
-let countryHolder;
+let countryHolder, amountHolder;
 const localKey = 'travel-planner';
 
-
+const getAllItems = () => {
+    // if (localStorage.hasLocalCountry()){
+    //     return localStorage.getItem(localKey);
+    // }
+    // else{
+    //     return [];
+    // }
+    return JSON.parse(localStorage.getItem(localKey)) || [];
+};
 
 const addLocalCountry = (key) => { // void / (true || false.)?
-    
+    let countries = getAllItems();
+    countries.push(key);
+    localStorage.setItem(localKey, JSON.stringify(countries));
 };
 
 const hasLocalCountry = (key) => { //true false
-
+    // return getAllItems().indexOf(key); // -1 -> not found, else position
+    return getAllItems().includes(key);
 };
 
 const removeLocalCountries = (key) => { // void / (true || false)?
-
+    const index = getAllItems().indexOf(key);
+    let savedCountries = getAllItems();
+    savedCountries.splice(index, 1);
+    localStorage.setItem(localKey, JSON.stringify(savedCountries));
 };
 
 const countCountries = () => { // -> 0 ... 250
-
+    return getAllItems().length;
 };
+
+const updateCounter = () => {
+    amountHolder.innerHTML = countCountries();
+}
 
 const addEventListenersToCountries = (classSelector) => {
     const countries = document.querySelectorAll(classSelector);
     for (const country of countries) {
         country.addEventListener('click', function(){
-            console.log('you clicked me ✌', this);
-            addLocalCountry();
+            const countryKey = this.getAttribute('for');
+            if (hasLocalCountry(countryKey)){
+                removeLocalCountries(countryKey);
+            }
+            else{
+                addLocalCountry(countryKey); //for bevat de correcte en unieke key
+            }
+            updateCounter();
         });
     }
     
@@ -41,7 +65,7 @@ const showCountries = data => {
         countries +=
         `
         <article>
-            <input type="checkbox" class="o-hide c-country-input" name="" id="${country.alpha2Code}">
+            <input type="checkbox" ${hasLocalCountry(country.alpha2Code) ? 'checked="checked"' : ''} class="o-hide c-country-input" name="" id="${country.alpha2Code}">
             <label for="${country.alpha2Code}" class="c-country js-country">
                 <div class="c-country-header">
                     <h2 class="c-country-header__name">${country.name}</h2>
@@ -78,20 +102,15 @@ const enableListeners = () => {
         });
     }
     countryHolder = document.querySelector('.js-country-holder');
-
+    amountHolder = document.querySelector('.js-amount');
     //Always start with Europe.
     fetchCountries('europe');
 };
 
-const enableCounter = () => {
-    const counterLabel = document.querySelector('.js-amount');
-    counterLabel.innerHTML = 0;
-}
-
 const init = () => {
     console.log('de DOM is geladen 👌')
     enableListeners();
-    getLocalCountries();
+    updateCounter();
 };
 
 document.addEventListener('DOMContentLoaded', init);
