@@ -136,7 +136,9 @@ html{
 /* Content*/
 .c-content{
     height: 100vh;
+    padding: var(--gutter) calc(var(--gutter)*2) var(--gutter) 0;
     overflow-x: auto;
+    box-sizing: border-box;
 }
 
 /* Country */
